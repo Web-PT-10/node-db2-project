@@ -14,7 +14,7 @@ server.use(morgan());
 server.use(express.json());
 
 server.use('/', welcomeRouter);
-server.use('/fruits', carRouter);
+server.use('/cars', carRouter);
 
 server.use((err, req, res, next) => {
 	console.log(err);
