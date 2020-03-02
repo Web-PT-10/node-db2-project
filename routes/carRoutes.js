@@ -49,9 +49,9 @@ router.put('/:id', validateCarId, async (req, res, next) => {
 		year: req.body.year,
 		cost: req.body.cost
 	};
-
+	console.log(payload);
 	try {
-		await db('cars').where('id', req.params.id).update(payload);
+		await db('cars').where('id', parseInt(req.params.id)).update(payload);
 		const car = await db('cars').where('id', req.params.id).first();
 		res.status(201).json(car);
 	} catch (err) {
@@ -71,7 +71,7 @@ router.delete('/:id', validateCarId, async (req, res, next) => {
 
 //custom middleware for data validation
 async function validateCarId(req, res, next) {
-	const Car = await db('cars').where('id', req.params.id);
+	const Car = await db('cars').where('id', parseInt(req.params.id));
 	console.log(Car);
 	if (!Car[0]) {
 		res.status(404).json({ message: 'Invalid project Id' });
